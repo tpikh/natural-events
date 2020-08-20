@@ -1,0 +1,33 @@
+.app {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 5vw 30vw 2vw;
+  grid-gap: 1em;
+
+
+  header,
+  footer {
+    grid-column: 1 / span 2;
+  }
+
+  header,
+  .list,
+  .detail,
+  .footer {
+    display: flex;
+    padding: 20px;
+  }
+
+  .detail{
+    justify-content: center;
+    align-items: center;
+  }
+
+  .list {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
