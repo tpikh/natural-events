@@ -13,9 +13,6 @@ export const fetchSources = () => {
     }
 }
 
-
-
-
 const receiveSources = (json: any): AnyAction => {
     return {
         type: RECEIVE_SOURCES,

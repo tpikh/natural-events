@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NaturalEventsTracker.Providers;
 
 namespace NaturalEventsTracker.Controllers
 {
@@ -19,7 +20,6 @@ namespace NaturalEventsTracker.Controllers
             var data = await sourcesProvider.GetAsync();
 
             return Ok(data);
-
         }
     }
 }

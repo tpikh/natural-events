@@ -13,8 +13,6 @@ export interface OwnProps {
 
 type EventDetailProps = EventDetailData & OwnProps
 
-
-
 export default class EventDetail extends React.Component<EventDetailProps> {
 
 

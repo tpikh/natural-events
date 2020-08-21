@@ -16,12 +16,9 @@ namespace NaturalEventsTracker.Controllers
             this.naturalEventsProvider = naturalEventsProvider;
         }
 
-
         public async Task<IActionResult> Get([FromQuery] NaturalEventsQuery query)
         {
-            
             var data = await naturalEventsProvider.GetAsync(query);
-            
 
             return Ok(data);
 
@@ -30,12 +27,9 @@ namespace NaturalEventsTracker.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-
             var data = await naturalEventsProvider.GetAsync(id);
 
-
             return Ok(data);
-
         }
     }
 }

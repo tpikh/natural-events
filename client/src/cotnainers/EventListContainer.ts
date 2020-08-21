@@ -5,7 +5,8 @@ import { fetchDetails } from '../actions';
 
 const mapStateToProps = (state: AppState) => ({
     events: state.list.events,
-    loading: state.list.loading
+    loading: state.list.loading,
+    error: state.list.error
   });
 
   const mapDispatchToProps = (dispatch: any) => {

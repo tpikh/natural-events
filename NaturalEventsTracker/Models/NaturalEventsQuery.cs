@@ -24,7 +24,7 @@ namespace NaturalEventsTracker.Models
         public string[] Status { get; set; }
 
         [QueryPropertyName("limit")]
-        public int Limit { get; set; } = 100;
+        public int Limit { get; set; } = 100; //
 
         public string Sort { get; set; }
     }

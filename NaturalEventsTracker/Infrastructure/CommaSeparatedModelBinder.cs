@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace NaturalEventsTracker.Infrastructure
 {
-
     public class CommaSeparatedModelBinder : IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
@@ -20,8 +19,6 @@ namespace NaturalEventsTracker.Infrastructure
             {
                 bindingContext.Result = ModelBindingResult.Failed();
             }
-
-
 
             return Task.CompletedTask;
         }

@@ -39,7 +39,6 @@ namespace NaturalEventsTracker.Extensions
                 nv.Add(name, value);
             }
 
-
             return nv.ToString();
         }
     }

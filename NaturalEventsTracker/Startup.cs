@@ -1,14 +1,17 @@
 using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using NaturalEventsTracker.Constants;
-using NaturalEventsTracker.Controllers;
+using NaturalEventsTracker.Middleware;
 using NaturalEventsTracker.Providers;
+using Polly;
+using Polly.Extensions.Http;
+
 
 namespace NaturalEventsTracker
 {
@@ -25,7 +28,9 @@ namespace NaturalEventsTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpClient(HttpClientNames.NaturalEventsClient, (client => client.BaseAddress = new Uri(ServiceUri)));
+            services.AddLogging(builder => builder.AddConsole());
+
+            services.AddHttpClient(HttpClientNames.NaturalEventsClient, client => client.BaseAddress = new Uri(ServiceUri)).AddPolicyHandler(GetRetryPolicy());
             services.AddTransient<INaturalEventsProvider, NaturalEventsProvider>();
             
             services.AddTransient<ISourcesProvider, SourcesProvider>();
@@ -50,6 +55,8 @@ namespace NaturalEventsTracker
                 app.UseHsts();
             }
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseHttpsRedirection();
@@ -63,6 +70,15 @@ namespace NaturalEventsTracker
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+        }
+
+        static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2,
+                    retryAttempt)));
         }
     }
 }

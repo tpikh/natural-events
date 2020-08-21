@@ -7,16 +7,13 @@ export interface EventListProps {
   onClick: Function
 }
 
-export default class EventListItem extends React.Component<EventListProps> {
-
-  render() {
-    return (
-      <List.Item onClick={this.props.onClick} className="cursor-pointer">
-        <span className={this.props.event.closed ? 'line-through' : ''}>
-          {this.props.event.title}
-        </span>
-      </List.Item>
-
-    );
-  }
+export default (props: EventListProps) => {
+  const { event, onClick } = props;
+  return (
+    <List.Item onClick={onClick} className="cursor-pointer">
+          <span className={event.closed ? 'line-through' : ''}>
+            {event.title}
+          </span>
+        </List.Item>
+  );
 }

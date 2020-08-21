@@ -5,11 +5,9 @@ namespace NaturalEventsTracker.Infrastructure
     public class QueryPropertyNameAttribute : Attribute
     {
         public string Name { get; set; }
-
-
-        public QueryPropertyNameAttribute(string Name)
+        public QueryPropertyNameAttribute(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
     }
 }

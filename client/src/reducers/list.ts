@@ -1,15 +1,17 @@
 import EventModel from "../models/Event";
-import { RECEIVE_EVENTS, REQUEST_EVENTS } from "../constants/actionTypes";
+import { RECEIVE_EVENTS, REQUEST_EVENTS, RECEIVE_EVENTS_FAILED } from "../constants/actionTypes";
 
 export interface EventListState {
     events: EventModel[],
-    loading: boolean
+    loading: boolean,
+    error: boolean
 }
 
 export function defaultEventListState(): EventListState {
     return {
         events: [],
-        loading: false
+        loading: false,
+        error: false
     };
 }
 
@@ -24,7 +26,15 @@ const list = (state: EventListState, action: any): EventListState => {
         case REQUEST_EVENTS: {
             return {
                 ...state,
-                loading: true
+                loading: true,
+                error: false
+            }
+        }
+        case RECEIVE_EVENTS_FAILED: {
+            return {
+                ...state,
+                loading: false,
+                error: true
             }
         }
     }

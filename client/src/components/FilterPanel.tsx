@@ -119,7 +119,6 @@ export default class FilterPanel extends React.Component<FilterPanelProps, Filte
                             </div>
                         </div>
                         <div className="field mb-4">
-
                             <ControlLabel>Statuses</ControlLabel>
                             <div>
                                 <CheckPicker

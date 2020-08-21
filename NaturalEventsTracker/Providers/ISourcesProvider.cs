@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using NaturalEventsTracker.Models;
 
-namespace NaturalEventsTracker
+namespace NaturalEventsTracker.Providers
 {
     public interface ISourcesProvider
     {
